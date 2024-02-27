@@ -1,0 +1,1 @@
+class CaptureNullRefError extends Error {}
