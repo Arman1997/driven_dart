@@ -1,1 +1,3 @@
-abstract class Template {}
+abstract class Template {
+  const Template();
+}

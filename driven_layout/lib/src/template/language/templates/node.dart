@@ -4,5 +4,5 @@ class Node extends Unit {
   final Type type;
   final List<Template> children;
 
-  Node(this.type, this.children);
+  const Node(this.type, this.children);
 }

@@ -4,5 +4,5 @@ import 'ast_entity.dart';
 class AstLeafEntity extends AstEntity {
   final Token token;
 
-  AstLeafEntity(this.token);
+  const AstLeafEntity(this.token);
 }

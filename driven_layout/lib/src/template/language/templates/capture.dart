@@ -8,4 +8,6 @@ final class Capture extends Template {
   set ref(Template newValue) {
     _ref = newValue;
   }
+
+  Capture();
 }

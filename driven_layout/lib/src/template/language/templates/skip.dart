@@ -1,3 +1,5 @@
 import 'template.dart' show Template;
 
-final class Skip extends Template {}
+final class Skip extends Template {
+  const Skip();
+}

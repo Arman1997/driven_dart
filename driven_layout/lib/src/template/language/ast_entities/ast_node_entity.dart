@@ -9,7 +9,7 @@ class AstNodeEntity extends AstEntity {
 
   Type get type => _nodeType;
 
-  AstNodeEntity({ required Type type, required this.childEntities}) : _nodeType = type;
+  const AstNodeEntity({ required Type type, required this.childEntities}) : _nodeType = type;
 
   factory AstNodeEntity.from(AstNode node) {
     final nodeFactory = _Factory();
@@ -18,9 +18,10 @@ class AstNodeEntity extends AstEntity {
   }
 }
 
-
 final class _Factory implements ThrowingAstVisitor {
-  late AstNodeEntity astNode;
+  AstNodeEntity? _astNode;
+
+  AstNodeEntity get astNode => _astNode ?? (throw UnimplementedError());
   
   AstEntity _mapChild(SyntacticEntity entity) {
     if (entity is AstNode) {
@@ -35,7 +36,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitAnnotation(Annotation node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: Annotation,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -43,7 +44,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitArgumentList(ArgumentList node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ArgumentList,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -51,7 +52,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitAsExpression(AsExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: AsExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -59,7 +60,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitAssertInitializer(AssertInitializer node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: AssertInitializer,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -67,7 +68,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitAssertStatement(AssertStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: AssertStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -75,7 +76,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitAssignedVariablePattern(AssignedVariablePattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: AssignedVariablePattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -83,7 +84,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitAssignmentExpression(AssignmentExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: AssignmentExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -91,7 +92,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitAugmentationImportDirective(AugmentationImportDirective node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: AugmentationImportDirective,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -99,7 +100,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitAwaitExpression(AwaitExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: AwaitExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -107,7 +108,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitBinaryExpression(BinaryExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: BinaryExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -115,7 +116,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitBlock(Block node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: Block,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -123,7 +124,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitBlockFunctionBody(BlockFunctionBody node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: BlockFunctionBody,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -131,7 +132,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitBooleanLiteral(BooleanLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: BooleanLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -139,7 +140,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitBreakStatement(BreakStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: BreakStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -147,7 +148,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitCascadeExpression(CascadeExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: CascadeExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -155,7 +156,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitCaseClause(CaseClause node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: CaseClause,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -163,7 +164,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitCastPattern(CastPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: CastPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -171,7 +172,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitCatchClause(CatchClause node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: CatchClause,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -179,7 +180,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitCatchClauseParameter(CatchClauseParameter node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: CatchClauseParameter,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -187,7 +188,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitClassDeclaration(ClassDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ClassDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -195,7 +196,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitClassTypeAlias(ClassTypeAlias node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ClassTypeAlias,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -203,7 +204,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitComment(Comment node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: Comment,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -211,7 +212,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitCommentReference(CommentReference node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: CommentReference,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -219,7 +220,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitCompilationUnit(CompilationUnit node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: CompilationUnit,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -227,7 +228,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitConditionalExpression(ConditionalExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ConditionalExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -235,7 +236,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitConfiguration(Configuration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: Configuration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -243,7 +244,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitConstantPattern(ConstantPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ConstantPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -251,7 +252,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitConstructorDeclaration(ConstructorDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ConstructorDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -259,7 +260,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitConstructorFieldInitializer(ConstructorFieldInitializer node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ConstructorFieldInitializer,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -267,7 +268,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitConstructorName(ConstructorName node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ConstructorName,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -275,7 +276,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitConstructorReference(ConstructorReference node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ConstructorReference,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -283,7 +284,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitConstructorSelector(ConstructorSelector node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ConstructorSelector,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -291,7 +292,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitContinueStatement(ContinueStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ContinueStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -299,7 +300,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitDeclaredIdentifier(DeclaredIdentifier node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: DeclaredIdentifier,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -307,7 +308,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitDeclaredVariablePattern(DeclaredVariablePattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: DeclaredVariablePattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -315,7 +316,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitDefaultFormalParameter(DefaultFormalParameter node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: DefaultFormalParameter,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -323,7 +324,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitDoStatement(DoStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: DoStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -331,7 +332,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitDottedName(DottedName node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: DottedName,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -339,7 +340,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitDoubleLiteral(DoubleLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: DoubleLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -347,7 +348,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitEmptyFunctionBody(EmptyFunctionBody node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: EmptyFunctionBody,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -355,7 +356,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitEmptyStatement(EmptyStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: EmptyStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -363,7 +364,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitEnumConstantArguments(EnumConstantArguments node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: EnumConstantArguments,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -371,7 +372,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitEnumConstantDeclaration(EnumConstantDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: EnumConstantDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -379,7 +380,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitEnumDeclaration(EnumDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: EnumDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -387,7 +388,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitExportDirective(ExportDirective node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ExportDirective,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -395,7 +396,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitExpressionFunctionBody(ExpressionFunctionBody node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ExpressionFunctionBody,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -403,7 +404,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitExpressionStatement(ExpressionStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ExpressionStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -411,7 +412,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitExtendsClause(ExtendsClause node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ExtendsClause,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -419,7 +420,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitExtensionDeclaration(ExtensionDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ExtensionDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -427,7 +428,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitExtensionOverride(ExtensionOverride node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ExtensionOverride,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -435,7 +436,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitExtensionTypeDeclaration(ExtensionTypeDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ExtensionTypeDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -443,7 +444,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFieldDeclaration(FieldDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FieldDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -451,7 +452,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFieldFormalParameter(FieldFormalParameter node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FieldFormalParameter,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -459,7 +460,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitForEachPartsWithDeclaration(ForEachPartsWithDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ForEachPartsWithDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -467,7 +468,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitForEachPartsWithIdentifier(ForEachPartsWithIdentifier node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ForEachPartsWithIdentifier,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -475,7 +476,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitForEachPartsWithPattern(ForEachPartsWithPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ForEachPartsWithPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -483,7 +484,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitForElement(ForElement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ForElement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -491,7 +492,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitForPartsWithDeclarations(ForPartsWithDeclarations node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ForPartsWithDeclarations,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -499,7 +500,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitForPartsWithExpression(ForPartsWithExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ForPartsWithExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -507,7 +508,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitForPartsWithPattern(ForPartsWithPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ForPartsWithPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -515,7 +516,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitForStatement(ForStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ForStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -523,7 +524,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFormalParameterList(FormalParameterList node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FormalParameterList,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -531,7 +532,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFunctionDeclaration(FunctionDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FunctionDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -539,7 +540,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFunctionDeclarationStatement(FunctionDeclarationStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FunctionDeclarationStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -547,7 +548,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFunctionExpression(FunctionExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FunctionExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -555,7 +556,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFunctionExpressionInvocation(FunctionExpressionInvocation node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FunctionExpressionInvocation,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -563,7 +564,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFunctionReference(FunctionReference node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FunctionReference,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -571,7 +572,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFunctionTypeAlias(FunctionTypeAlias node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FunctionTypeAlias,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -579,7 +580,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitFunctionTypedFormalParameter(FunctionTypedFormalParameter node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: FunctionTypedFormalParameter,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -587,7 +588,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitGenericFunctionType(GenericFunctionType node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: GenericFunctionType,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -595,7 +596,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitGenericTypeAlias(GenericTypeAlias node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: GenericTypeAlias,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -603,7 +604,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitGuardedPattern(GuardedPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: GuardedPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -611,7 +612,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitHideCombinator(HideCombinator node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: HideCombinator,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -619,7 +620,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitIfElement(IfElement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: IfElement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -627,7 +628,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitIfStatement(IfStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: IfStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -635,7 +636,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitImplementsClause(ImplementsClause node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ImplementsClause,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -643,7 +644,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitImplicitCallReference(ImplicitCallReference node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ImplicitCallReference,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -651,7 +652,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitImportDirective(ImportDirective node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ImportDirective,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -659,7 +660,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitImportPrefixReference(ImportPrefixReference node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ImportPrefixReference,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -667,7 +668,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitIndexExpression(IndexExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: IndexExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -675,7 +676,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitInstanceCreationExpression(InstanceCreationExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: InstanceCreationExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -683,7 +684,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitIntegerLiteral(IntegerLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: IntegerLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -691,7 +692,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitInterpolationExpression(InterpolationExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: InterpolationExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -699,7 +700,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitInterpolationString(InterpolationString node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: InterpolationString,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -707,7 +708,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitIsExpression(IsExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: IsExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -715,7 +716,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitLabel(Label node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: Label,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -723,7 +724,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitLabeledStatement(LabeledStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: LabeledStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -731,7 +732,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitLibraryAugmentationDirective(LibraryAugmentationDirective node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: LibraryAugmentationDirective,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -739,7 +740,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitLibraryDirective(LibraryDirective node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: LibraryDirective,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -747,7 +748,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitLibraryIdentifier(LibraryIdentifier node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: LibraryIdentifier,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -755,7 +756,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitListLiteral(ListLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ListLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -763,7 +764,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitListPattern(ListPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ListPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -771,7 +772,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitLogicalAndPattern(LogicalAndPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: LogicalAndPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -779,7 +780,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitLogicalOrPattern(LogicalOrPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: LogicalOrPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -787,7 +788,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitMapLiteralEntry(MapLiteralEntry node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: MapLiteralEntry,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -795,7 +796,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitMapPattern(MapPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: MapPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -803,7 +804,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitMapPatternEntry(MapPatternEntry node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: MapPatternEntry,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -811,7 +812,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitMethodDeclaration(MethodDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: MethodDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -819,7 +820,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitMethodInvocation(MethodInvocation node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: MethodInvocation,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -827,7 +828,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitMixinDeclaration(MixinDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: MixinDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -835,7 +836,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitNamedExpression(NamedExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: NamedExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -843,7 +844,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitNamedType(NamedType node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: NamedType,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -851,7 +852,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitNativeClause(NativeClause node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: NativeClause,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -859,7 +860,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitNativeFunctionBody(NativeFunctionBody node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: NativeFunctionBody,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -867,7 +868,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitNullAssertPattern(NullAssertPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: NullAssertPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -875,7 +876,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitNullCheckPattern(NullCheckPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: NullCheckPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -883,7 +884,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitNullLiteral(NullLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: NullLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -891,7 +892,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitObjectPattern(ObjectPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ObjectPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -899,7 +900,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitOnClause(OnClause node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: OnClause,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -907,7 +908,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitParenthesizedExpression(ParenthesizedExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ParenthesizedExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -915,7 +916,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitParenthesizedPattern(ParenthesizedPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ParenthesizedPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -923,7 +924,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPartDirective(PartDirective node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PartDirective,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -931,7 +932,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPartOfDirective(PartOfDirective node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PartOfDirective,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -939,7 +940,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPatternAssignment(PatternAssignment node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PatternAssignment,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -947,7 +948,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPatternField(PatternField node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PatternField,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -955,7 +956,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPatternFieldName(PatternFieldName node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PatternFieldName,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -963,7 +964,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPatternVariableDeclaration(PatternVariableDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PatternVariableDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -971,7 +972,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPatternVariableDeclarationStatement(PatternVariableDeclarationStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PatternVariableDeclarationStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -979,7 +980,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPostfixExpression(PostfixExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PostfixExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -987,7 +988,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPrefixExpression(PrefixExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PrefixExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -995,7 +996,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPrefixedIdentifier(PrefixedIdentifier node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PrefixedIdentifier,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1003,7 +1004,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitPropertyAccess(PropertyAccess node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: PropertyAccess,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1011,7 +1012,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRecordLiteral(RecordLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RecordLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1019,7 +1020,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRecordPattern(RecordPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RecordPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1027,7 +1028,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRecordTypeAnnotation(RecordTypeAnnotation node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RecordTypeAnnotation,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1035,7 +1036,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRecordTypeAnnotationNamedField(RecordTypeAnnotationNamedField node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RecordTypeAnnotationNamedField,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1043,7 +1044,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRecordTypeAnnotationNamedFields(RecordTypeAnnotationNamedFields node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RecordTypeAnnotationNamedFields,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1051,7 +1052,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRecordTypeAnnotationPositionalField(RecordTypeAnnotationPositionalField node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RecordTypeAnnotationPositionalField,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1059,7 +1060,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRedirectingConstructorInvocation(RedirectingConstructorInvocation node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RedirectingConstructorInvocation,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1067,7 +1068,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRelationalPattern(RelationalPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RelationalPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1075,7 +1076,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRepresentationConstructorName(RepresentationConstructorName node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RepresentationConstructorName,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1083,7 +1084,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRepresentationDeclaration(RepresentationDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RepresentationDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1091,7 +1092,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRestPatternElement(RestPatternElement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RestPatternElement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1099,7 +1100,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitRethrowExpression(RethrowExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: RethrowExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1107,7 +1108,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitReturnStatement(ReturnStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ReturnStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1115,7 +1116,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitScriptTag(ScriptTag node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ScriptTag,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1123,7 +1124,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSetOrMapLiteral(SetOrMapLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SetOrMapLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1131,7 +1132,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitShowCombinator(ShowCombinator node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ShowCombinator,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1139,7 +1140,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSimpleFormalParameter(SimpleFormalParameter node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SimpleFormalParameter,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1147,7 +1148,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSimpleIdentifier(SimpleIdentifier node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SimpleIdentifier,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1155,7 +1156,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSimpleStringLiteral(SimpleStringLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SimpleStringLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1163,7 +1164,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSpreadElement(SpreadElement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SpreadElement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1171,7 +1172,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitStringInterpolation(StringInterpolation node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: StringInterpolation,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1179,7 +1180,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSuperConstructorInvocation(SuperConstructorInvocation node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SuperConstructorInvocation,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1187,7 +1188,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSuperExpression(SuperExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SuperExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1195,7 +1196,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSuperFormalParameter(SuperFormalParameter node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SuperFormalParameter,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1203,7 +1204,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSwitchCase(SwitchCase node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SwitchCase,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1211,7 +1212,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSwitchDefault(SwitchDefault node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SwitchDefault,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1219,7 +1220,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSwitchExpression(SwitchExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SwitchExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1227,7 +1228,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSwitchExpressionCase(SwitchExpressionCase node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SwitchExpressionCase,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1235,7 +1236,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSwitchPatternCase(SwitchPatternCase node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SwitchPatternCase,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1243,7 +1244,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSwitchStatement(SwitchStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SwitchStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1251,7 +1252,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitSymbolLiteral(SymbolLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: SymbolLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1259,7 +1260,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitThisExpression(ThisExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ThisExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1267,7 +1268,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitThrowExpression(ThrowExpression node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: ThrowExpression,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1275,7 +1276,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: TopLevelVariableDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1283,7 +1284,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitTryStatement(TryStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: TryStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1291,7 +1292,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitTypeArgumentList(TypeArgumentList node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: TypeArgumentList,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1299,7 +1300,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitTypeLiteral(TypeLiteral node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: TypeLiteral,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1307,7 +1308,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitTypeParameter(TypeParameter node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: TypeParameter,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1315,7 +1316,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitTypeParameterList(TypeParameterList node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: TypeParameterList,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1323,7 +1324,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitVariableDeclaration(VariableDeclaration node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: VariableDeclaration,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1331,7 +1332,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitVariableDeclarationList(VariableDeclarationList node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: VariableDeclarationList,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1339,7 +1340,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitVariableDeclarationStatement(VariableDeclarationStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: VariableDeclarationStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1347,7 +1348,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitWhenClause(WhenClause node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: WhenClause,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1355,7 +1356,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitWhileStatement(WhileStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: WhileStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1363,7 +1364,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitWildcardPattern(WildcardPattern node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: WildcardPattern,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1371,7 +1372,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitWithClause(WithClause node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: WithClause,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1379,7 +1380,7 @@ final class _Factory implements ThrowingAstVisitor {
 
   @override
   visitYieldStatement(YieldStatement node) { 
-     astNode = AstNodeEntity(
+     _astNode = AstNodeEntity(
       type: YieldStatement,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
@@ -1387,7 +1388,7 @@ final class _Factory implements ThrowingAstVisitor {
   
   @override
   visitAdjacentStrings(AdjacentStrings node) {
-    astNode = AstNodeEntity(
+    _astNode = AstNodeEntity(
       type: AdjacentStrings,
       childEntities: node.childEntities.map(_mapChild).toList(),
     );
