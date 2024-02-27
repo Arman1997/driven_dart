@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:driven_layout/src/template/language/templates/templates.dart';
 import 'package:driven_layout/src/template/language/ast_entities/ast_entities.dart';
 import 'context_captures.dart' show ContextCaptures;
@@ -17,24 +19,18 @@ final class _Dispatcher implements Dispatcher {
   @override
   Future<Context> dispatch<T extends Node, U extends SyntacticEntity>(
       T buffer, AstEntity data) async {
-    final List<Capture> nodeCaptures = List.empty(growable: true);
-    final List<Capture> leafCaptures = List.empty(growable: true);
 
-    final Context context =
-        Context(ContextCaptures(nodeCaptures, leafCaptures));
-    await _iterate(data, buffer, context);
-    return context;
-  }
+    final Context contextRef =
+        Context(ContextCaptures(List.empty(growable: true), List.empty(growable: true)));
 
-  Future<Template> _iterate<U extends SyntacticEntity>(
-      AstEntity data, Template templatePattern, Context contextRef) async {
-    return switch ((templatePattern, data)) {
+   iterate() async {
+    return switch ((buffer, data)) {
       (Node node, AstNodeEntity nodeEntity)
           when _nodesMatch(node, nodeEntity) =>
-        await _mergeChildEntities(node, nodeEntity, contextRef),
+        await _mergeChildEntities(node, nodeEntity, contextRef, iterate),
       (NonOrderedNode node, AstNodeEntity nodeEntity)
           when _nodesMatch(node, nodeEntity) =>
-        await _mergeNonOrderedChildren(node, nodeEntity, contextRef),
+        await _mergeNonOrderedChildren(node, nodeEntity, contextRef, iterate),
       (Leaf leaf, AstLeafEntity leafEntity)
           when _leafsMatch(leaf, leafEntity) =>
         _mergeLeafs(leaf, leafEntity),
@@ -43,9 +39,13 @@ final class _Dispatcher implements Dispatcher {
       (Capture capture, AstLeafEntity leaf) =>
         _mergeLeafCapture(capture, leaf, contextRef),
       (Maybe maybe, AstEntity entity) =>
-        await _mergeMaybe(maybe, entity, contextRef),
+        await _mergeMaybe(maybe, entity, contextRef, iterate),
       (_, _) => throw UnimplementedError(),
     };
+  }
+
+    await Isolate.run(iterate);
+    return contextRef;
   }
 
   bool _nodesMatch(Node node, AstNodeEntity nodeEntity) =>
@@ -53,7 +53,7 @@ final class _Dispatcher implements Dispatcher {
       node.children.length <= nodeEntity.childEntities.length;
 
   Future<Template> _mergeChildEntities(
-      Node node, AstNodeEntity nodeEntity, Context contextRef) async {
+      Node node, AstNodeEntity nodeEntity, Context contextRef, iterate) async {
     List<Template> buffer = List<Template>.empty(growable: true);
     for (var i = 0, j = 0;
         (i < node.children.length && j < nodeEntity.childEntities.length);
@@ -64,7 +64,7 @@ final class _Dispatcher implements Dispatcher {
       if (entityChild != null && child != null) {
         if (child is MaybeMultiple) {
           try {
-            final element = await _iterate(entityChild, child, contextRef);
+            final element = await iterate(entityChild, child, contextRef);
             buffer.add(element);
             j--;
           } catch (_) {
@@ -74,7 +74,7 @@ final class _Dispatcher implements Dispatcher {
           continue;
         }
 
-        buffer.add(await _iterate(entityChild, child, contextRef));
+        buffer.add(await iterate(entityChild, child, contextRef));
       }
     }
 
@@ -82,7 +82,7 @@ final class _Dispatcher implements Dispatcher {
   }
 
   Future<Template> _mergeNonOrderedChildren(
-      NonOrderedNode node, AstNodeEntity nodeEntity, Context contextRef) async {
+      NonOrderedNode node, AstNodeEntity nodeEntity, Context contextRef, iterate) async {
       
       final nodeChildren = node.children;
       final entityChildren = nodeEntity.childEntities;
@@ -97,7 +97,7 @@ final class _Dispatcher implements Dispatcher {
 
           if (node !=null  && entity != null) {
             try {
-              buffer.add(await _iterate(entity, node, contextRef));
+              buffer.add(await iterate(entity, node, contextRef));
               continue outerloop;
             } catch(e) {
               continue;
@@ -132,10 +132,10 @@ final class _Dispatcher implements Dispatcher {
   }
 
   Future<Template> _mergeMaybe(
-      Maybe maybe, AstEntity entity, Context contextRef) async {
+      Maybe maybe, AstEntity entity, Context contextRef, iterate) async {
     for (var element in maybe.patterns) {
       try {
-        return await _iterate(entity, element, contextRef);
+        return await iterate(entity, element, contextRef);
       } catch (e) {
         continue;
       }
