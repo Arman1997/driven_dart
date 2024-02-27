@@ -9,6 +9,7 @@ environment:
 # Add regular dependencies here.
 dependencies:
   analyzer: ^6.2.0
+  freezed_result: ^1.0.3+1
   http: ^1.2.0
 
 dev_dependencies:
